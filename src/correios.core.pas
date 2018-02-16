@@ -36,12 +36,13 @@ type
     XmlEnvio: TXMLEnvio;
     DadosEntrada: TStringList;
     RespostaServidor: TStringStream;
+    xmlPath: String;
     destructor destroy; override;
     procedure initializeHttp;
     procedure SetDados(Dados: TData);
     procedure TratarDados(Var Dados: TData);
   public
-    constructor Create(Data: TData);
+    constructor Create(Data: TData; XmlPath: String = '');
     function Send: string;
 end;
 
@@ -49,7 +50,7 @@ implementation
 
 { TDataSender }
 
-constructor TDataController.Create(Data: TData);
+constructor TDataController.Create(Data: TData; XmlPath: String = '');
 begin
   Self.Data := Data;
   Self.IdHttp := TIdHTTP.Create(nil);
@@ -58,6 +59,10 @@ begin
   Self.RespostaServidor.Clear;
   Self.DadosEntrada.Clear;
   Self.DadosEntrada.TrailingLineBreak := False;
+  if not (XmlPath.IsEmpty) then
+     Self.xmlPath := XmlPath
+  else
+     Self.xmlPath :=  ExtractFilePath(ParamStr(0));
   initializeHttp;
   TratarDados(Self.Data);
   SetDados(Self.Data);
@@ -82,6 +87,11 @@ end;
 function TDataController.Send: string;
 const
   URL = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo';
+  XML_FILE = 'answerXML.xml';
+var
+  DadosResposta: TStringList;
+  enviador: TXMLEnvio;
+  retorno: TRetorno;
 begin
   Result := '';
   if self.DadosEntrada.Text = '' then
@@ -90,6 +100,19 @@ begin
      Self.DadosEntrada.SaveToFile('c:\teste.txt');
      IdHttp.Post(URL, Self.DadosEntrada, Self.RespostaServidor);
      Result := '0';
+     DadosResposta := TStringList.Create;
+     try
+        DadosResposta.Text := Self.RespostaServidor.DataString;
+        DadosResposta.SaveToFile(Self.xmlPath+XML_FILE);
+        enviador := TXMLEnvio.create(self.xmlPath+XML_FILE);
+        try
+           retorno := enviador.retornarDados;
+        finally
+           enviador.Free;
+        end;
+     finally
+        DadosResposta.Free;
+     end;
   except
     on E:EIdHttpProtocolException do
     begin
@@ -129,7 +152,6 @@ begin
      Dados.ValorDeclarado := '0';
   if Dados.AvisoRecebimento = '' then
      Dados.AvisoRecebimento := 'N'
-
 end;
 
 end.

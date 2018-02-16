@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, correios.core;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, correios.core,
+  Vcl.StdCtrls;
 
 type
   TFormExample = class(TForm)
@@ -38,7 +39,7 @@ begin
     CepDestino := '88905355';
     ValorPeso := '5.5';
     CodigoFormato := Caixa;
-    ValorAltura := '20.0';
+    ValorAltura := '1323.0';
     ValorLargura := '17.0';
     ValorDiamentro := '10.0';
     ValorComprimento := '18.0';

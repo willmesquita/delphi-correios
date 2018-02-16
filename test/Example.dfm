@@ -2,7 +2,7 @@ object FormExample: TFormExample
   Left = 0
   Top = 0
   Caption = 'Example'
-  ClientHeight = 257
+  ClientHeight = 326
   ClientWidth = 415
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,7 +18,7 @@ object FormExample: TFormExample
     Left = 0
     Top = 0
     Width = 415
-    Height = 257
+    Height = 326
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
