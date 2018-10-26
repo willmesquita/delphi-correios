@@ -28,6 +28,7 @@ type
      AvisoRecebimento: String[1];
 end;
 
+
 type
   TDataController = class(TObject)
   private
@@ -37,6 +38,7 @@ type
     DadosEntrada: TStringList;
     RespostaServidor: TStringStream;
     xmlPath: String;
+    Retorno: TRetorno;
     destructor destroy; override;
     procedure initializeHttp;
     procedure SetDados(Dados: TData);
@@ -44,6 +46,7 @@ type
   public
     constructor Create(Data: TData; XmlPath: String = '');
     function Send: string;
+    function Recieved: TRetorno;
 end;
 
 implementation
@@ -84,6 +87,11 @@ begin
   IdHttp.ProtocolVersion := pv1_1;
 end;
 
+function TDataController.Recieved: TRetorno;
+begin
+  Result := Retorno;
+end;
+
 function TDataController.Send: string;
 const
   URL = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo';
@@ -91,13 +99,11 @@ const
 var
   DadosResposta: TStringList;
   enviador: TXMLEnvio;
-  retorno: TRetorno;
 begin
   Result := '';
   if self.DadosEntrada.Text = '' then
     exit;
   try
-     Self.DadosEntrada.SaveToFile('c:\teste.txt');
      IdHttp.Post(URL, Self.DadosEntrada, Self.RespostaServidor);
      Result := '0';
      DadosResposta := TStringList.Create;

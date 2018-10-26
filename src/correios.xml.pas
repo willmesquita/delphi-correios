@@ -41,8 +41,22 @@ type
     procedure lerXml;
   public
     constructor create(xmlPath: String);
+    procedure limparDados;
     function retornarDados: TRetorno;
   end;
+
+const
+  DEF_RETURN : TRetorno = (dados: (valor: 0;
+                                   valorMaoPropria : 0;
+                                   valorAvisoRecebimento: 0;
+                                   valorDeclarado: 0;
+                                   prazoEntraga: '';
+                                   entregaDomiciliar: '';
+                                   entregaSabado: '';
+                                   valorSemAdicionais: 0;
+                                   codigoServico: '';
+                                   descricaoServico: '');
+                           dadosErro: (codigo: 0; mensagemErro: ''));
 
 implementation
 
@@ -109,16 +123,30 @@ begin
            self.retornoXML.dados.descricaoServico := 'Pac Varejo';
          end;
          self.retornoXML.dados.valor := StrToFloat(ChildNodes['Valor'].Text);
-         self.retornoXML.dados.valorMaoPropria := StrToFloat(ChildNodes['ValorMaoPropria'].Text);
-         self.retornoXML.dados.valorAvisoRecebimento := StrToFloat(ChildNodes['ValorAvisoRecebimento'].Text);
-         self.retornoXML.dados.valorDeclarado := StrToFloat(ChildNodes['valorDeclarado'].Text);
-         self.retornoXML.dados.valorSemAdicionais := StrToFloat(ChildNodes['valorSemAdicionais'].Text);
+         self.retornoXML.dados.valorMaoPropria := StrToFloatDef(ChildNodes['ValorMaoPropria'].Text,0);
+         self.retornoXML.dados.valorAvisoRecebimento := StrToFloatDef(ChildNodes['ValorAvisoRecebimento'].Text,0);
+         self.retornoXML.dados.valorDeclarado := StrToFloatDef(ChildNodes['valorDeclarado'].Text.Replace(',','.'),0);
+         self.retornoXML.dados.valorSemAdicionais := StrToFloatDef(ChildNodes['valorSemAdicionais'].Text.Replace(',','.'),0);
          self.retornoXML.dados.prazoEntraga := ChildNodes['PrazoEntrega'].Text + ' dia(s)';
          self.retornoXML.dados.entregaDomiciliar := IfThen(ChildNodes['MaoPropria'].Text.Equals('S'),'SIM','NÃO');
          self.retornoXML.dados.entregaSabado := Ifthen(ChildNodes['EntregaSabado'].Text.Equals('S'),'SIM','NÃO');
        end;
     end;
   end;
+end;
+
+procedure TXMLEnvio.limparDados;
+begin
+  Self.dadosRetorno.valor := 0;
+  Self.dadosRetorno.valorMaoPropria := 0;
+  Self.dadosRetorno.valorAvisoRecebimento := 0;
+  Self.dadosRetorno.valorDeclarado := 0;
+  Self.dadosRetorno.prazoEntraga := '';
+  Self.dadosRetorno.entregaDomiciliar := '';
+  Self.dadosRetorno.entregaSabado := '';
+  Self.dadosRetorno.valorSemAdicionais := 0;
+  Self.dadosRetorno.codigoServico := '';
+  Self.dadosRetorno.descricaoServico := '';
 end;
 
 function TXMLEnvio.retornarDados: TRetorno;

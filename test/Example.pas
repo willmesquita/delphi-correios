@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, correios.core,
-  Vcl.StdCtrls, Vcl.Mask;
+  Vcl.StdCtrls, Vcl.Mask, StrUtils;
 
 type
   TFormExample = class(TForm)
@@ -38,6 +38,8 @@ type
     editValorDeclarado: TMaskEdit;
     checkMaoPropria: TCheckBox;
     checkAvisoRecebimento: TCheckBox;
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnEnviarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
@@ -52,7 +54,14 @@ implementation
 
 {$R *.dfm}
 
-procedure TFormExample.FormCreate(Sender: TObject);
+uses Recebido;
+
+procedure TFormExample.btnCancelarClick(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+procedure TFormExample.btnEnviarClick(Sender: TObject);
 var
   Consulta: TDataController;
   Dados: TData;
@@ -60,30 +69,55 @@ var
 begin
   with Dados do
   begin
-    CodigoEmpresa := '';
-    SenhaEmpresa := '';
-    CodigoServico := Sedex;
-    CepOrigem := '88906768';
-    CepDestino := '88905355';
-    ValorPeso := '5.5';
-    CodigoFormato := Caixa;
-    ValorAltura := '1323.0';
-    ValorLargura := '17.0';
-    ValorDiamentro := '10.0';
-    ValorComprimento := '18.0';
-    CodigoMaoPropria := 'N';
-    ValorDeclarado := '0';
-    AvisoRecebimento := 'N';
+    CodigoEmpresa := editEmpresa.Text;
+    SenhaEmpresa := editSenha.Text;
+    CodigoServico := TServico(comboEntrega.Items.IndexOfObject(TObject(comboEntrega.ItemIndex)));
+    CepOrigem := editCepOrigem.Text;
+    CepDestino := editCepDestino.Text;
+    ValorPeso := editPeso.Text;
+    CodigoFormato := TFormatoPacote(comboFormato.Items.IndexOfObject(TObject(comboFormato.ItemIndex)));
+    ValorAltura := editAltura.Text;
+    ValorLargura := editLargura.Text;
+    ValorDiamentro := editDiametro.Text;
+    ValorComprimento := editComprimento.Text;
+    CodigoMaoPropria := ifThen(checkMaoPropria.Checked,'S','N');
+    ValorDeclarado := editValorDeclarado.Text;
+    AvisoRecebimento := ifThen(checkAvisoRecebimento.Checked,'S','N');
   end;
-  Consulta := TDataController.Create(Dados);
+
+ Consulta := TDataController.Create(Dados);
   try
     retorno := Consulta.Send;
     if Retorno = '0' then
-      ShowMessage('ok')
+    begin
+      FrmRecebido := TFrmRecebido.CreateWithDetail(nil,Consulta.Recieved);
+      try
+        Consulta.Recieved;
+        FrmRecebido.ShowModal;
+      finally
+        FrmRecebido.Free;
+      end;
+    end
     else
       ShowMessage('error: '+Retorno);
   finally
+
   end;
 end;
 
+procedure TFormExample.FormCreate(Sender: TObject);
+begin
+  comboEntrega.AddItem('40010 - SEDEX',TObject(TServico.Sedex));
+  comboEntrega.AddItem('40045 - SEDEX A COBRAR',TObject(TServico.SedexCobrar));
+  comboEntrega.AddItem('40215 - SEDEX 10',TObject(TServico.Sedex10));
+  comboEntrega.AddItem('40290 - SEDEX HOJE',TObject(TServico.SedexHoje));
+  comboEntrega.AddItem('41106 - PAC',TObject(TServico.Pac));
+
+  comboFormato.AddItem('CAIXA',TObject(TFormatoPacote.Caixa));
+  comboFormato.AddItem('ROLO',TObject(TFormatoPacote.Rolo));
+  comboFormato.AddItem('ENVELOPE',TObject(TFormatoPacote.Envelope));
+end;
+
 end.
+
+
