@@ -2,7 +2,7 @@ object FormExample: TFormExample
   Left = 0
   Top = 0
   Caption = 'Example'
-  ClientHeight = 297
+  ClientHeight = 290
   ClientWidth = 355
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,10 +19,11 @@ object FormExample: TFormExample
     Left = 0
     Top = 0
     Width = 355
-    Height = 297
+    Height = 290
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitHeight = 297
     object Label1: TLabel
       Left = 16
       Top = 16
@@ -39,7 +40,7 @@ object FormExample: TFormExample
     end
     object Label3: TLabel
       Left = 16
-      Top = 48
+      Top = 51
       Width = 41
       Height = 13
       AutoSize = False
@@ -61,35 +62,35 @@ object FormExample: TFormExample
     end
     object Label6: TLabel
       Left = 16
-      Top = 128
+      Top = 126
       Width = 23
       Height = 13
       Caption = 'Peso'
     end
     object Label7: TLabel
       Left = 148
-      Top = 128
+      Top = 126
       Width = 40
       Height = 13
       Caption = 'Formato'
     end
     object Label8: TLabel
       Left = 16
-      Top = 163
+      Top = 161
       Width = 29
       Height = 13
       Caption = 'Altura'
     end
     object Label9: TLabel
       Left = 111
-      Top = 163
+      Top = 161
       Width = 37
       Height = 13
       Caption = 'Largura'
     end
     object Label10: TLabel
       Left = 212
-      Top = 163
+      Top = 161
       Width = 63
       Height = 13
       Caption = 'Comprimento'
@@ -124,7 +125,7 @@ object FormExample: TFormExample
     end
     object comboEntrega: TComboBox
       Left = 63
-      Top = 45
+      Top = 48
       Width = 279
       Height = 21
       TabOrder = 2
@@ -140,7 +141,7 @@ object FormExample: TFormExample
       Text = ''
     end
     object editCepDestino: TMaskEdit
-      Left = 249
+      Left = 250
       Top = 85
       Width = 92
       Height = 21
@@ -151,76 +152,28 @@ object FormExample: TFormExample
     end
     object comboFormato: TComboBox
       Left = 206
-      Top = 125
+      Top = 123
       Width = 136
       Height = 21
-      TabOrder = 5
-    end
-    object editPeso: TMaskEdit
-      Left = 45
-      Top = 125
-      Width = 89
-      Height = 21
       TabOrder = 6
-      Text = ''
     end
     object btnEnviar: TButton
       Left = 266
-      Top = 266
+      Top = 258
       Width = 75
       Height = 25
       Caption = 'Enviar'
-      TabOrder = 7
+      TabOrder = 15
       OnClick = btnEnviarClick
     end
-    object btnCancelar: TButton
+    object btnSair: TButton
       Left = 15
-      Top = 266
+      Top = 258
       Width = 75
       Height = 25
       Caption = 'Sair'
-      TabOrder = 8
-      OnClick = btnCancelarClick
-    end
-    object editAltura: TMaskEdit
-      Left = 53
-      Top = 160
-      Width = 52
-      Height = 21
-      TabOrder = 9
-      Text = ''
-    end
-    object editLargura: TMaskEdit
-      Left = 154
-      Top = 160
-      Width = 52
-      Height = 21
-      TabOrder = 10
-      Text = ''
-    end
-    object editComprimento: TMaskEdit
-      Left = 281
-      Top = 160
-      Width = 60
-      Height = 21
-      TabOrder = 11
-      Text = ''
-    end
-    object editDiametro: TMaskEdit
-      Left = 65
-      Top = 191
-      Width = 52
-      Height = 21
-      TabOrder = 12
-      Text = ''
-    end
-    object editValorDeclarado: TMaskEdit
-      Left = 209
-      Top = 191
-      Width = 132
-      Height = 21
-      TabOrder = 13
-      Text = ''
+      TabOrder = 14
+      OnClick = btnSairClick
     end
     object checkMaoPropria: TCheckBox
       Left = 15
@@ -228,7 +181,7 @@ object FormExample: TFormExample
       Width = 97
       Height = 17
       Caption = 'M'#227'o Propria'
-      TabOrder = 14
+      TabOrder = 12
     end
     object checkAvisoRecebimento: TCheckBox
       Left = 128
@@ -236,7 +189,49 @@ object FormExample: TFormExample
       Width = 111
       Height = 17
       Caption = 'Aviso Recebimento'
-      TabOrder = 15
+      TabOrder = 13
+    end
+    object editPeso: TEdit
+      Left = 47
+      Top = 123
+      Width = 78
+      Height = 21
+      TabOrder = 5
+    end
+    object editAltura: TEdit
+      Left = 53
+      Top = 158
+      Width = 49
+      Height = 21
+      TabOrder = 7
+    end
+    object editLargura: TEdit
+      Left = 154
+      Top = 158
+      Width = 49
+      Height = 21
+      TabOrder = 8
+    end
+    object editComprimento: TEdit
+      Left = 287
+      Top = 158
+      Width = 55
+      Height = 21
+      TabOrder = 9
+    end
+    object editDiametro: TEdit
+      Left = 63
+      Top = 191
+      Width = 58
+      Height = 21
+      TabOrder = 10
+    end
+    object editValorDeclarado: TEdit
+      Left = 215
+      Top = 191
+      Width = 127
+      Height = 21
+      TabOrder = 11
     end
   end
 end

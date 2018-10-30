@@ -1,20 +1,18 @@
 # delphi-correios
 
-[en-US]  
-This library was made for get data from mailing services on correios (brazilian postal-service).  
-ps: this library is not stable and done yet.  
+	Esta biblioteca foi feita para retornar dados de serviços dos correios. O serviço em questão retorna os dados 
+	sobre o custo e o prazo de entrega. O projeto está sobre a licença do MIT, e poderá ser utilizado respeitando a licença.
 
-## Dependencies
-  [Indy 10](http://www.indyproject.org/index.en.aspx) or higher 
+## Exemplo
+	
+	Dentro do projeto há um modelo de exemplo onde mostra os dados para serem inseridos e sua resposta.
 
-[pt-BR]  
+## Dependências
 
-Esta biblioteca foi feita para retornar dados de serviços dos correios.  
-obs: este library não esta completo e estável até o momento.  
-
-## Dependencias
   [Indy 10](http://www.indyproject.org/index.en.aspx) ou maior  
+  
+## Contribuições
 
+	Caso deseja fazer uma contribuição no código, abra uma issue e relate o que está acontecendo.
+  
 
-
-This library is under MIT license

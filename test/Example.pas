@@ -23,22 +23,22 @@ type
     Label6: TLabel;
     Label7: TLabel;
     comboFormato: TComboBox;
-    editPeso: TMaskEdit;
     btnEnviar: TButton;
-    btnCancelar: TButton;
+    btnSair: TButton;
     Label8: TLabel;
-    editAltura: TMaskEdit;
     Label9: TLabel;
-    editLargura: TMaskEdit;
-    editComprimento: TMaskEdit;
     Label10: TLabel;
     Label11: TLabel;
-    editDiametro: TMaskEdit;
     Label12: TLabel;
-    editValorDeclarado: TMaskEdit;
     checkMaoPropria: TCheckBox;
     checkAvisoRecebimento: TCheckBox;
-    procedure btnCancelarClick(Sender: TObject);
+    editPeso: TEdit;
+    editAltura: TEdit;
+    editLargura: TEdit;
+    editComprimento: TEdit;
+    editDiametro: TEdit;
+    editValorDeclarado: TEdit;
+    procedure btnSairClick(Sender: TObject);
     procedure btnEnviarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -56,7 +56,7 @@ implementation
 
 uses Recebido;
 
-procedure TFormExample.btnCancelarClick(Sender: TObject);
+procedure TFormExample.btnSairClick(Sender: TObject);
 begin
   Application.Terminate;
 end;
@@ -87,12 +87,11 @@ begin
 
  Consulta := TDataController.Create(Dados);
   try
-    retorno := Consulta.Send;
+    retorno := Consulta.Enviar;
     if Retorno = '0' then
     begin
-      FrmRecebido := TFrmRecebido.CreateWithDetail(nil,Consulta.Recieved);
+      FrmRecebido := TFrmRecebido.CreateWithDetail(nil,Consulta.DadosRecebidos);
       try
-        Consulta.Recieved;
         FrmRecebido.ShowModal;
       finally
         FrmRecebido.Free;

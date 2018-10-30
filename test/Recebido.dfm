@@ -171,6 +171,7 @@ object FrmRecebido: TFrmRecebido
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ReadOnly = True
       TabOrder = 1
       Text = 'edtCodigo'
     end
@@ -185,6 +186,7 @@ object FrmRecebido: TFrmRecebido
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ReadOnly = True
       TabOrder = 2
       Text = 'Edit1'
     end
@@ -199,6 +201,7 @@ object FrmRecebido: TFrmRecebido
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ReadOnly = True
       TabOrder = 3
       Text = 'Edit1'
     end
@@ -213,6 +216,7 @@ object FrmRecebido: TFrmRecebido
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ReadOnly = True
       TabOrder = 4
       Text = 'Edit1'
     end
@@ -227,6 +231,7 @@ object FrmRecebido: TFrmRecebido
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ReadOnly = True
       TabOrder = 5
       Text = 'Edit1'
     end
@@ -241,6 +246,7 @@ object FrmRecebido: TFrmRecebido
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ReadOnly = True
       TabOrder = 6
       Text = 'Edit1'
     end
@@ -255,6 +261,7 @@ object FrmRecebido: TFrmRecebido
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ReadOnly = True
       TabOrder = 7
       Text = 'Edit1'
     end
@@ -269,6 +276,7 @@ object FrmRecebido: TFrmRecebido
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ReadOnly = True
       TabOrder = 8
       Text = 'Edit1'
     end
@@ -283,6 +291,7 @@ object FrmRecebido: TFrmRecebido
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ReadOnly = True
       TabOrder = 9
       Text = 'Edit1'
     end
@@ -297,6 +306,7 @@ object FrmRecebido: TFrmRecebido
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ReadOnly = True
       TabOrder = 10
       Text = 'Edit1'
     end

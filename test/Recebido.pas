@@ -62,22 +62,21 @@ constructor TFrmRecebido.CreateWithDetail(AOwner: TComponent;
   Retorno: TRetorno);
 begin
   inherited Create(AOwner);
-  edtCodigo.Text := Retorno.dados.codigoServico;
-  edtValor.Text := Retorno.dados.valor.ToString;
-  edtValorRecebimento.Text := Retorno.dados.valorMaoPropria.ToString;
-  edtValorMaoPropria.Text := Retorno.dados.valorMaoPropria.ToString;
-  edtValorDeclarado.Text := Retorno.dados.valorDeclarado.ToString;
-  edtPrazoEntrega.Text := Retorno.dados.prazoEntraga + ' Dias';
-  if Retorno.dados.entregaDomiciliar.Equals('N') then
-     edtEntregaDomiciliar.Text := 'Não'
+  if Retorno.dadosErro.codigo <> 0 then
+     MessageDLG(Retorno.dadosErro.mensagemErro,mtError,[mbOK],0)
   else
-     edtEntregaDomiciliar.Text := 'Sim';
-  if Retorno.dados.entregaSabado.Equals('N') then
-     edtEntregaSabado.Text  := 'Não'
-  else
-     edtEntregaSabado.Text  := 'Sim';
-  edtValorSemAdicionais.Text := Retorno.dados.valorSemAdicionais.ToString;
-  edtServico.Text := Retorno.dados.descricaoServico;
+  begin
+    edtCodigo.Text := Retorno.dados.codigoServico;
+    edtValor.Text := Retorno.dados.valor.ToString;
+    edtValorRecebimento.Text := Retorno.dados.valorMaoPropria.ToString;
+    edtValorMaoPropria.Text := Retorno.dados.valorMaoPropria.ToString;
+    edtValorDeclarado.Text := Retorno.dados.valorDeclarado.ToString;
+    edtPrazoEntrega.Text := Retorno.dados.prazoEntraga + ' Dia(s)';
+    edtEntregaDomiciliar.Text := Retorno.dados.entregaDomiciliar;
+    edtEntregaSabado.Text  := Retorno.dados.entregaSabado;
+    edtValorSemAdicionais.Text := Retorno.dados.valorSemAdicionais.ToString;
+    edtServico.Text := Retorno.dados.descricaoServico;
+  end;
 end;
 
 end.

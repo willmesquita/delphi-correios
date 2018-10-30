@@ -40,13 +40,13 @@ type
     xmlPath: String;
     Retorno: TRetorno;
     destructor destroy; override;
-    procedure initializeHttp;
+    procedure inicializarHttp;
     procedure SetDados(Dados: TData);
     procedure TratarDados(Var Dados: TData);
   public
     constructor Create(Data: TData; XmlPath: String = '');
-    function Send: string;
-    function Recieved: TRetorno;
+    function Enviar: string;
+    function DadosRecebidos: TRetorno;
 end;
 
 implementation
@@ -66,7 +66,7 @@ begin
      Self.xmlPath := XmlPath
   else
      Self.xmlPath :=  ExtractFilePath(ParamStr(0));
-  initializeHttp;
+  inicializarHttp;
   TratarDados(Self.Data);
   SetDados(Self.Data);
 end;
@@ -79,7 +79,7 @@ begin
   inherited;
 end;
 
-procedure TDataController.initializeHttp;
+procedure TDataController.inicializarHttp;
 begin
   IdHttp.Request.CustomHeaders.Clear;
   IdHttp.Request.Clear;
@@ -87,15 +87,15 @@ begin
   IdHttp.ProtocolVersion := pv1_1;
 end;
 
-function TDataController.Recieved: TRetorno;
+function TDataController.DadosRecebidos: TRetorno;
 begin
   Result := Retorno;
 end;
 
-function TDataController.Send: string;
+function TDataController.Enviar: string;
 const
   URL = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo';
-  XML_FILE = 'answerXML.xml';
+  XML_FILE = 'xml_resposta.xml';
 var
   DadosResposta: TStringList;
   enviador: TXMLEnvio;

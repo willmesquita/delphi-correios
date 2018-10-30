@@ -63,19 +63,20 @@ implementation
 constructor TXMLEnvio.create(xmlPath: string);
 begin
   self.xmlDocumento := TXMLDocument.Create(nil);
-  self.xmlCarregado := carregarXMLResposta(xmlPath)
+  self.xmlCarregado := carregarXMLResposta(xmlPath);
 end;
 
 function TXMLEnvio.carregarXMLResposta(path: String): boolean;
 begin
+   result := true;
    try
       self.xmlDocumento.LoadFromFile(path);
       self.xmlDocumento.Active := true;
-      result := true;
    except
       on E:Exception do
       begin
          result := false;
+         E.Create('Erro ao carregar xml de resposta');
       end;
    end;
 end;
@@ -122,7 +123,7 @@ begin
            self.retornoXML.dados.codigoServico := '41106';
            self.retornoXML.dados.descricaoServico := 'Pac Varejo';
          end;
-         self.retornoXML.dados.valor := StrToFloat(ChildNodes['Valor'].Text);
+         self.retornoXML.dados.valor := StrToFloatDef(ChildNodes['Valor'].Text,0);
          self.retornoXML.dados.valorMaoPropria := StrToFloatDef(ChildNodes['ValorMaoPropria'].Text,0);
          self.retornoXML.dados.valorAvisoRecebimento := StrToFloatDef(ChildNodes['ValorAvisoRecebimento'].Text,0);
          self.retornoXML.dados.valorDeclarado := StrToFloatDef(ChildNodes['valorDeclarado'].Text.Replace(',','.'),0);
