@@ -123,12 +123,15 @@ begin
            self.retornoXML.dados.codigoServico := '41106';
            self.retornoXML.dados.descricaoServico := 'Pac Varejo';
          end;
-         self.retornoXML.dados.valor := StrToFloatDef(ChildNodes['Valor'].Text,0);
-         self.retornoXML.dados.valorMaoPropria := StrToFloatDef(ChildNodes['ValorMaoPropria'].Text,0);
-         self.retornoXML.dados.valorAvisoRecebimento := StrToFloatDef(ChildNodes['ValorAvisoRecebimento'].Text,0);
-         self.retornoXML.dados.valorDeclarado := StrToFloatDef(ChildNodes['valorDeclarado'].Text.Replace(',','.'),0);
-         self.retornoXML.dados.valorSemAdicionais := StrToFloatDef(ChildNodes['valorSemAdicionais'].Text.Replace(',','.'),0);
-         self.retornoXML.dados.prazoEntraga := ChildNodes['PrazoEntrega'].Text + ' dia(s)';
+         self.retornoXML.dados.valor := ChildNodes['Valor'].Text.ToDouble;
+         self.retornoXML.dados.valorMaoPropria := ChildNodes['ValorMaoPropria'].Text.ToDouble;
+         self.retornoXML.dados.valorAvisoRecebimento := ChildNodes['ValorAvisoRecebimento'].Text.ToDouble;
+         self.retornoXML.dados.valorDeclarado := ChildNodes['ValorValorDeclarado'].Text.ToDouble;
+         self.retornoXML.dados.valorSemAdicionais := ChildNodes['ValorSemAdicionais'].Text.ToDouble;
+         if ChildNodes['PrazoEntrega'].Text.ToInteger = 1 then
+            self.retornoXML.dados.prazoEntraga := ChildNodes['PrazoEntrega'].Text + ' dia'
+         else
+            self.retornoXML.dados.prazoEntraga := ChildNodes['PrazoEntrega'].Text + ' dias';
          self.retornoXML.dados.entregaDomiciliar := IfThen(ChildNodes['MaoPropria'].Text.Equals('S'),'SIM','NÃO');
          self.retornoXML.dados.entregaSabado := Ifthen(ChildNodes['EntregaSabado'].Text.Equals('S'),'SIM','NÃO');
        end;

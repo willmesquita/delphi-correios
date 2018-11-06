@@ -65,17 +65,17 @@ procedure TFormExample.btnEnviarClick(Sender: TObject);
 var
   Consulta: TDataController;
   Dados: TData;
-  Retorno: String;
+  Retorno: integer;
 begin
   with Dados do
   begin
     CodigoEmpresa := editEmpresa.Text;
     SenhaEmpresa := editSenha.Text;
-    CodigoServico := TServico(comboEntrega.Items.IndexOfObject(TObject(comboEntrega.ItemIndex)));
+    CodigoServico := TServico(comboEntrega.Items.Objects[comboEntrega.ItemIndex]);
     CepOrigem := editCepOrigem.Text;
     CepDestino := editCepDestino.Text;
     ValorPeso := editPeso.Text;
-    CodigoFormato := TFormatoPacote(comboFormato.Items.IndexOfObject(TObject(comboFormato.ItemIndex)));
+    CodigoFormato := TFormatoPacote(comboFormato.Items.Objects[comboFormato.ItemIndex]);
     ValorAltura := editAltura.Text;
     ValorLargura := editLargura.Text;
     ValorDiamentro := editDiametro.Text;
@@ -88,7 +88,7 @@ begin
  Consulta := TDataController.Create(Dados);
   try
     retorno := Consulta.Enviar;
-    if Retorno = '0' then
+    if Retorno = 0 then
     begin
       FrmRecebido := TFrmRecebido.CreateWithDetail(nil,Consulta.DadosRecebidos);
       try
@@ -97,8 +97,9 @@ begin
         FrmRecebido.Free;
       end;
     end
-    else
-      ShowMessage('error: '+Retorno);
+    else if Retorno <> -1 then         
+      MessageDlg('Erro ao realizar consulta: '
+          +Consulta.DadosRecebidos.dadosErro.mensagemErro,mtError,[mbOk],0);
   finally
 
   end;
@@ -106,15 +107,19 @@ end;
 
 procedure TFormExample.FormCreate(Sender: TObject);
 begin
-  comboEntrega.AddItem('40010 - SEDEX',TObject(TServico.Sedex));
-  comboEntrega.AddItem('40045 - SEDEX A COBRAR',TObject(TServico.SedexCobrar));
-  comboEntrega.AddItem('40215 - SEDEX 10',TObject(TServico.Sedex10));
-  comboEntrega.AddItem('40290 - SEDEX HOJE',TObject(TServico.SedexHoje));
-  comboEntrega.AddItem('41106 - PAC',TObject(TServico.Pac));
+  comboEntrega.Items.AddObject('40010 - SEDEX',TObject(TServico.Sedex));
+  comboEntrega.Items.AddObject('40045 - SEDEX A COBRAR',TObject(TServico.SedexCobrar));
+  comboEntrega.Items.AddObject('40215 - SEDEX 10',TObject(TServico.Sedex10));
+  comboEntrega.Items.AddObject('40290 - SEDEX HOJE',TObject(TServico.SedexHoje));
+  comboEntrega.Items.AddObject('41106 - PAC',TObject(TServico.Pac));
 
-  comboFormato.AddItem('CAIXA',TObject(TFormatoPacote.Caixa));
-  comboFormato.AddItem('ROLO',TObject(TFormatoPacote.Rolo));
-  comboFormato.AddItem('ENVELOPE',TObject(TFormatoPacote.Envelope));
+  comboFormato.Items.AddObject('CAIXA',TObject(TFormatoPacote.Caixa));
+  comboFormato.Items.AddObject('ROLO',TObject(TFormatoPacote.Rolo));
+  comboFormato.Items.AddObject('ENVELOPE',TObject(TFormatoPacote.Envelope));
+
+  comboEntrega.ItemIndex := 0;
+  comboFormato.ItemIndex := 0;
+
 end;
 
 end.

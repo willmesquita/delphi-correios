@@ -67,14 +67,14 @@ begin
   else
   begin
     edtCodigo.Text := Retorno.dados.codigoServico;
-    edtValor.Text := Retorno.dados.valor.ToString;
-    edtValorRecebimento.Text := Retorno.dados.valorMaoPropria.ToString;
-    edtValorMaoPropria.Text := Retorno.dados.valorMaoPropria.ToString;
-    edtValorDeclarado.Text := Retorno.dados.valorDeclarado.ToString;
-    edtPrazoEntrega.Text := Retorno.dados.prazoEntraga + ' Dia(s)';
+    edtValor.Text := FormatFloat('#,##0.00',Retorno.dados.valor);
+    edtValorRecebimento.Text := FormatFloat('#,##0.00',Retorno.dados.valorAvisoRecebimento);
+    edtValorMaoPropria.Text := FormatFloat('#,##0.00',Retorno.dados.valorMaoPropria);
+    edtValorDeclarado.Text := FormatFloat('#,##0.00',Retorno.dados.valorDeclarado);
+    edtPrazoEntrega.Text := Retorno.dados.prazoEntraga;
     edtEntregaDomiciliar.Text := Retorno.dados.entregaDomiciliar;
     edtEntregaSabado.Text  := Retorno.dados.entregaSabado;
-    edtValorSemAdicionais.Text := Retorno.dados.valorSemAdicionais.ToString;
+    edtValorSemAdicionais.Text := FormatFloat('#,##0.00',Retorno.dados.valorSemAdicionais);
     edtServico.Text := Retorno.dados.descricaoServico;
   end;
 end;

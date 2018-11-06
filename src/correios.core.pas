@@ -2,7 +2,7 @@ unit correios.core;
 
 interface
 
-uses Classes, IdHTTP, correios.xml, SysUtils;
+uses Classes, Dialogs, IdHTTP, correios.xml, SysUtils;
 
 type
   TServico = (Sedex = 40010,SedexCobrar = 40045,
@@ -45,7 +45,7 @@ type
     procedure TratarDados(Var Dados: TData);
   public
     constructor Create(Data: TData; XmlPath: String = '');
-    function Enviar: string;
+    function Enviar: integer;
     function DadosRecebidos: TRetorno;
 end;
 
@@ -92,7 +92,7 @@ begin
   Result := Retorno;
 end;
 
-function TDataController.Enviar: string;
+function TDataController.Enviar: integer;
 const
   URL = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo';
   XML_FILE = 'xml_resposta.xml';
@@ -100,12 +100,11 @@ var
   DadosResposta: TStringList;
   enviador: TXMLEnvio;
 begin
-  Result := '';
+  Result := 0;
   if self.DadosEntrada.Text = '' then
     exit;
   try
      IdHttp.Post(URL, Self.DadosEntrada, Self.RespostaServidor);
-     Result := '0';
      DadosResposta := TStringList.Create;
      try
         DadosResposta.Text := Self.RespostaServidor.DataString;
@@ -113,6 +112,7 @@ begin
         enviador := TXMLEnvio.create(self.xmlPath+XML_FILE);
         try
            retorno := enviador.retornarDados;
+           result  := retorno.dadosErro.codigo;
         finally
            enviador.Free;
         end;
@@ -122,7 +122,8 @@ begin
   except
     on E:EIdHttpProtocolException do
     begin
-       result := E.Message + ' - ' + E.ErrorMessage;
+       MessageDlg(E.Message + ' - ' + E.ErrorMessage,mtError,[mbOk],0);
+       result := -1;
        Exit;
     end;
   end;

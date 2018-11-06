@@ -23,7 +23,6 @@ object FormExample: TFormExample
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitHeight = 297
     object Label1: TLabel
       Left = 16
       Top = 16
@@ -162,7 +161,7 @@ object FormExample: TFormExample
       Top = 258
       Width = 75
       Height = 25
-      Caption = 'Enviar'
+      Caption = '&Enviar'
       TabOrder = 15
       OnClick = btnEnviarClick
     end
@@ -171,7 +170,7 @@ object FormExample: TFormExample
       Top = 258
       Width = 75
       Height = 25
-      Caption = 'Sair'
+      Caption = '&Sair'
       TabOrder = 14
       OnClick = btnSairClick
     end
