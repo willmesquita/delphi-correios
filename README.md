@@ -15,4 +15,4 @@
 
 	Caso deseja fazer uma contribuição no código, abra uma issue e relate o que está acontecendo.
   
-
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ESCVYR6BAB9EW)
