@@ -12,22 +12,21 @@ type
 
 type
   TData = packed record
-     CodigoEmpresa: String[20];
-     SenhaEmpresa: String[20];
+     CodigoEmpresa: String;
+     SenhaEmpresa: String;
      CodigoServico: TServico;
-     CepOrigem: String[8];
-     CepDestino: String[8];
-     ValorPeso: String[10];
+     CepOrigem: String;
+     CepDestino: String;
+     ValorPeso: String;
      CodigoFormato: TFormatoPacote;
-     ValorAltura: String[10];
-     ValorLargura: String[10];
-     ValorDiamentro: String[10];
-     ValorComprimento: String[10];
-     CodigoMaoPropria: String[1];
-     ValorDeclarado: string[10];
-     AvisoRecebimento: String[1];
+     ValorAltura: String;
+     ValorLargura: String;
+     ValorDiamentro: String;
+     ValorComprimento: String;
+     CodigoMaoPropria: String;
+     ValorDeclarado: string;
+     AvisoRecebimento: String;
 end;
-
 
 type
   TDataController = class(TObject)
@@ -101,8 +100,8 @@ var
   enviador: TXMLEnvio;
 begin
   Result := 0;
-  if self.DadosEntrada.Text = '' then
-    exit;
+  if self.DadosEntrada.Text.IsEmpty then
+     exit;
   try
      IdHttp.Post(URL, Self.DadosEntrada, Self.RespostaServidor);
      DadosResposta := TStringList.Create;
@@ -122,7 +121,7 @@ begin
   except
     on E:EIdHttpProtocolException do
     begin
-       MessageDlg(E.Message + ' - ' + E.ErrorMessage,mtError,[mbOk],0);
+       MessageDlg(Format('%s - %s', [E.Message, E.ErrorMessage]),mtError,[mbOk],0);
        result := -1;
        Exit;
     end;

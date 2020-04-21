@@ -2,12 +2,12 @@ program ExampleProj;
 
 uses
   Vcl.Forms,
-  Example in 'Example.pas' {FormExample},
-  correios.core in '..\src\correios.core.pas',
-  correios.xml in '..\src\correios.xml.pas',
-  Recebido in 'Recebido.pas' {FrmRecebido},
+  correios.core in 'src\correios\correios.core.pas',
+  correios.xml in 'src\correios\correios.xml.pas',
   Vcl.Themes,
-  Vcl.Styles;
+  Vcl.Styles,
+  Example in 'src\forms\Example.pas' {FormExample},
+  Recebido in 'src\forms\Recebido.pas' {FrmRecebido};
 
 {$R *.res}
 

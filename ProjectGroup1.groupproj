@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{007F3E10-6FD3-4903-BF07-4EE0582450BE}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="ExampleProj.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="test\TesteCorreios.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ExampleProj">
+        <MSBuild Projects="ExampleProj.dproj"/>
+    </Target>
+    <Target Name="ExampleProj:Clean">
+        <MSBuild Projects="ExampleProj.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ExampleProj:Make">
+        <MSBuild Projects="ExampleProj.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="TesteCorreios">
+        <MSBuild Projects="test\TesteCorreios.dproj"/>
+    </Target>
+    <Target Name="TesteCorreios:Clean">
+        <MSBuild Projects="test\TesteCorreios.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TesteCorreios:Make">
+        <MSBuild Projects="test\TesteCorreios.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ExampleProj;TesteCorreios"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ExampleProj:Clean;TesteCorreios:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ExampleProj:Make;TesteCorreios:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
