@@ -11,7 +11,9 @@ uses
   DUnitX.Loggers.Console,
   DUnitX.Loggers.Xml.NUnit,
   DUnitX.TestFramework,
-  TesteEnvio in 'TesteEnvio.pas';
+  TesteEnvio in 'TesteEnvio.pas',
+  correios.core in '..\src\correios\correios.core.pas',
+  correios.xml in '..\src\correios\correios.xml.pas';
 
 var
   runner : ITestRunner;
